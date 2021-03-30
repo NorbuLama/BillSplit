@@ -1,5 +1,6 @@
 package com.example.billsplit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,8 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +57,18 @@ public class home_fragment extends Fragment {
 
         DisplayGroups();
 
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String curgroupName = parent.getItemAtPosition(position).toString();
+
+                Intent groupIntent = new Intent(getContext(), groupExpenseActivity.class);
+                groupIntent.putExtra("groupName", curgroupName);
+                startActivity(groupIntent);
+
+            }
+        });
+
         return groupFragmentView;
     }
 
@@ -84,4 +99,6 @@ public class home_fragment extends Fragment {
         listview.setAdapter(arrayAdp);
 
     }
+
+
 }
