@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.253"
-        tools:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/userpic" />
 
     <EditText
         android:id="@+id/user_name"

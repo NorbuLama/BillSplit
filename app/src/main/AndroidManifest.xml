@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BillSplit">
+        <activity android:name=".addExpense"></activity>
         <activity android:name=".groupExpenseActivity" />
         <activity android:name=".about" />
         <activity android:name=".profile" />

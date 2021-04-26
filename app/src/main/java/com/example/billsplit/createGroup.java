@@ -70,7 +70,8 @@ public class createGroup extends AppCompatActivity {
                 HashMap<String, String> myInfo = new HashMap<>();
                 myInfo.put("GroupName", name);
                 myInfo.put("uid", currenttime);
-                myInfo.put("role", "creater");
+                myInfo.put("Balance", "0");
+                myInfo.put("role", "creator");
                 myInfo.put("timestamp", currenttime);
 
                 DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Groups");
