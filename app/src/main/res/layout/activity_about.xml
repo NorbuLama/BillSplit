@@ -16,18 +16,31 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.03" />
 
     <MultiAutoCompleteTextView
         android:id="@+id/multiAutoCompleteTextView"
         android:layout_width="366dp"
         android:layout_height="220dp"
+        android:fontFamily="@font/aclonica"
         android:text="BIll$plit is an android application that can be used to split, share, update and keep track of your bills and expenses that were made jointly with your roommates or group of friends."
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.355"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintVertical_bias="0.025" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="218dp"
+        android:src="@drawable/billsharepic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/multiAutoCompleteTextView"
+        app:layout_constraintVertical_bias="0.33" />
 </androidx.constraintlayout.widget.ConstraintLayout>

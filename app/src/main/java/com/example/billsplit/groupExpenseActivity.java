@@ -53,7 +53,6 @@ public class groupExpenseActivity extends AppCompatActivity {
 
         getUserInfo();
 
-
         FloatingActionButton addBtn = findViewById(R.id.fab);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -82,14 +81,6 @@ public class groupExpenseActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
 
 
     }
