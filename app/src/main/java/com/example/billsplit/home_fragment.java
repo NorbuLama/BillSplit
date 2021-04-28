@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -94,7 +93,7 @@ public class home_fragment extends Fragment {
     }
 
     private void intitializeFields() {
-        listview = (ListView) groupFragmentView.findViewById(R.id.grouplist);
+        listview = (ListView) groupFragmentView.findViewById(R.id.memberList);
         arrayAdp = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, listofgroups);
         listview.setAdapter(arrayAdp);
 
