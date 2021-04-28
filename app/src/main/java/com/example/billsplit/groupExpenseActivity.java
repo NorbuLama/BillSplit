@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -23,14 +24,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class groupExpenseActivity extends AppCompatActivity {
     static String groupName;
     static String currentUserID;
     private String curentUserName;
     private FirebaseAuth myAuth;
     private DatabaseReference myRef;
-
-
+    private TextView Balance;
+    private Map<String,String> allBalance = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +46,33 @@ public class groupExpenseActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(groupName);
 
         myAuth = FirebaseAuth.getInstance();
+        Balance = findViewById(R.id.balance);
+        currentUserID = myAuth.getCurrentUser().getUid();
+        System.out.println(currentUserID);
         myRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        currentUserID = myAuth.getCurrentUser().getUid();
-
         getUserInfo();
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dsp : snapshot.getChildren()) {
+                    String a = String.valueOf(dsp.child("Balance").getValue());
+                    allBalance.put(dsp.getKey(), a);
+                }
+                String bal = allBalance.get(currentUserID);
+                Balance.setText(bal);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
 
         FloatingActionButton addBtn = findViewById(R.id.fab);
@@ -53,6 +80,7 @@ public class groupExpenseActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getApplicationContext(),addExpense.class));
             }
         });

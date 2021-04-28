@@ -66,6 +66,7 @@ public class createGroup extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(createGroup.this, "Group Created Successfully!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
                 HashMap<String, String> myInfo = new HashMap<>();
                 myInfo.put("GroupName", name);
@@ -74,22 +75,22 @@ public class createGroup extends AppCompatActivity {
                 myInfo.put("role", "creator");
                 myInfo.put("timestamp", currenttime);
 
-                DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Groups");
-                ref1.child(name).child("Participants").child(fireAuth.getUid()).setValue(myInfo)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(createGroup.this, "Group Created", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            }
-
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(createGroup.this, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+//                DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Groups");
+//                ref1.child(name).child("Participants").child(fireAuth.getUid()).setValue(myInfo)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(createGroup.this, "Group Created", Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                            }
+//
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(createGroup.this, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
 
 
             }
