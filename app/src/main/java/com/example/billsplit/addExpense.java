@@ -66,113 +66,57 @@ public class addExpense extends AppCompatActivity {
                 amount = Double.parseDouble(expAmt.getText().toString().trim());
                 myRef = FirebaseDatabase.getInstance().getReference().child("Users");
                 splittheBill();
-                updatethebill();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
 
     }
 
-    private void updatethebill() {
-        double due = amount-(amount/noOfParticipants);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                noOfParticipants = (int) snapshot.getChildrenCount();
-
-                for (DataSnapshot dsp : snapshot.getChildren()) {
-                    String uid = dsp.getKey();
-                    if (uid == userid){
-                        double a = Double.parseDouble(users.get(userid));
-                        double balance = a+amount-due;
-                        myRef.child(uid).child("Balance").setValue(String.valueOf(balance));
-                    }else {
-                        double a = Double.parseDouble(users.get(uid));
-                        double balance = a-due;
-                        myRef.child(uid).child("Balance").setValue(String.valueOf(balance));
-                    }
-
-                }
-//                System.out.println(users);
-                System.out.println("this is users: " + users);
-                System.out.println("this is onlyusers: " + onlyusers);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dss: snapshot.getChildren()){
-//                    if (dss.getKey().equalsIgnoreCase(userid)){
-//                        double a = Double.parseDouble(users.get(userid));
-//                        myRef.child(userid).child("Balance").setValue(String.valueOf(a+amount-due));
-//                    }
-//                    else{
-//                        double a = Double.parseDouble(users.get(userid));
-//                        myRef.child(userid).child("Balance").setValue(String.valueOf(a-due));
-//                    }
-//                }
-//
-//                for(String id: onlyusers){
-//                    if(id.equalsIgnoreCase(userid)){
-//                        double a = Double.parseDouble(users.get(id));
-//                        myRef.child(userid).child("Balance").setValue(String.valueOf(a+amount-due));
-//                    }
-//                    else{
-//                        double a = Double.parseDouble(users.get(id));
-//                        myRef.child(userid).child("Balance").setValue(String.valueOf(a-due));
-//
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-//        for(String id: onlyusers){
-//            if(id.equalsIgnoreCase(userid)){
-//                double a = Double.parseDouble(users.get(id));
-//
-//               myRef.child(userid).child("Balance").setValue(String.valueOf(a+amount-due));
-////               updatebalance.setText(String.valueOf(a+amount-due));
-//            }
-//            else{
-//                double a = Double.parseDouble(users.get(id));
-////                updatebalance.setText(String.valueOf(a-due));
-//                myRef.child(userid).child("Balance").setValue(String.valueOf(10));
-//
-//            }
-//        }
-
-    }
-
-
     private void splittheBill() {
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 noOfParticipants = (int) snapshot.getChildrenCount();
+                users.clear();
+                onlyusers.clear();
 
                 for (DataSnapshot dsp : snapshot.getChildren()) {
                     String bala = String.valueOf(dsp.child("Balance").getValue());
                     onlyusers.add(dsp.getKey());
+
                     users.put(dsp.getKey(), bala);
                 }
-//                System.out.println(users);
-                System.out.println("this is users: " + users);
-                System.out.println("this is onlyusers: " + onlyusers);
+
+
+                double due = amount/noOfParticipants;
+                System.out.println("this is due: " + due);
+                for (DataSnapshot dsp : snapshot.getChildren()) {
+                    String uid = dsp.getKey();
+                    if (uid.equalsIgnoreCase(userid)){
+                        double a = Double.parseDouble(users.get(userid));
+                        System.out.println(a + " " + " " + amount + " " + due);
+                        double balance = a+amount-due;
+                        System.out.println("the balance will update for" +uid + " to : " + balance );
+
+                        myRef.child(uid).child("Balance").setValue(String.valueOf(balance));
+
+
+                    }else {
+                        double a = Double.parseDouble(users.get(uid));
+                        double balance = a-due;
+                        System.out.println(a + " " + " " + amount + " " + due);
+
+                        System.out.println("the balance will update for" +uid + " to : " + balance );
+
+                        myRef.child(uid).child("Balance").setValue(String.valueOf(balance));
+
+                    }
+
+                }
+                users.clear();
+                onlyusers.clear();
+
 
             }
 
@@ -181,6 +125,7 @@ public class addExpense extends AppCompatActivity {
 
             }
         });
+
     }
 }
 

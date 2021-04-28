@@ -54,6 +54,16 @@ public class groupExpenseActivity extends AppCompatActivity {
         getUserInfo();
 
 
+        FloatingActionButton addBtn = findViewById(R.id.fab);
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getApplicationContext(),addExpense.class));
+            }
+        });
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -64,6 +74,7 @@ public class groupExpenseActivity extends AppCompatActivity {
                 }
                 String bal = allBalance.get(currentUserID);
                 Balance.setText(bal);
+
             }
 
             @Override
@@ -75,15 +86,7 @@ public class groupExpenseActivity extends AppCompatActivity {
 
 
 
-        FloatingActionButton addBtn = findViewById(R.id.fab);
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(getApplicationContext(),addExpense.class));
-            }
-        });
 
 
 
