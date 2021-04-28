@@ -82,4 +82,21 @@ public class login extends AppCompatActivity {
             }
         });
     }
+    public static boolean password(String s) {
+        boolean valid = true;
+
+        if(s.length() <= 8) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public static boolean isEmailValid(String email) {
+        if (email.contains("@") && email.contains(".com")) {
+            return true;
+        }
+        return false;
+    }
 }
